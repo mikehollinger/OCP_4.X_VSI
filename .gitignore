@@ -1,6 +1,3 @@
 roles/build_ic4g_ocp_host_inventory
 roles/cleanup_ic4g_ocp_servers
 roles/restart_ic4g_ocp_servers
-play1.yaml
-play2.yaml
-play3.yaml
