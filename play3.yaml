@@ -1,5 +1,0 @@
-- hosts: vsi_sl_helper_guest
-  vars:
-    ansible_python_interpreter: "/usr/bin/python"
-  roles:
-     - validate_ic4g_ocp_servers

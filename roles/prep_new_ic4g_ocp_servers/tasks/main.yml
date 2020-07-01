@@ -1,4 +1,0 @@
-
-- include: updatecoreoshosts.yml
-- include: updatebootprocess.yml
-#- include: catmacaddr.yml
