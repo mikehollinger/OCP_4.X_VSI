@@ -1,3 +1,4 @@
 roles/build_ic4g_ocp_host_inventory
 roles/cleanup_ic4g_ocp_servers
 roles/restart_ic4g_ocp_servers
+play3.yaml
