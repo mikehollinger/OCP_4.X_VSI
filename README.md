@@ -23,7 +23,7 @@ This tutorial uses the following runtimes and services:
 ## 	Architecture Diagram
 <img src=images/ocp_vsi_architecture.png width="900"/>
 
-#### Tasks performed by Playbook
+#### Tasks performed by Ansible Playbook
 1. Uses [SoftLayer API Python Client](https://softlayer-api-python-client.readthedocs.io/en/latest/) (scli) to order the CentOS VSI
 2. Forces VSI to boot using the compiled Linux Kernel
 3. Assigns IP address and reboot the VSI to:
@@ -47,7 +47,7 @@ This tutorial uses the following runtimes and services:
 
 This tutorial requires:
 
-- Mac book or Linux desktop (CentOS or Redhat) to kick off the ansible playbook. Ensure [ansible is installed](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) by executing the following command.
+- Mac book or Linux desktop (CentOS or Redhat) to kick off the Ansible playbook. Ensure [ansible is installed](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) by executing the following command.
 ```
    $ ansible --version
 ```
@@ -74,7 +74,7 @@ Estimated time:
 ##  
 ## Steps
 
-1. Clone the ansible playbook repo:
+1. Clone the Ansible playbook repo:
 
 	```  
 	$ git clone https://github.ibm.com/harsingh/OCP_4.X_VSI.git
@@ -142,7 +142,7 @@ Estimated time:
 
 >  <img src=images/gw_3.png width="800"/>
 
-5. Execute the bash script to run the playbook
+5. Execute the bash script to run the Ansible playbook
 	```  
 	$ chmod +x create_ocp_instance.sh delete_ocp_instance.sh
 
@@ -164,7 +164,7 @@ In this section, you are going to verify the installed OpenShift to make sure it
 3. Click **Devices** -> **Device List** to find the server created. You should see your server device listed.
 
 **Verify OpenShift**
-1. The last task of the ansible playbook prints out a message with userid and password, as shown below
+1. The last task of the Ansible playbook prints out a message with userid and password, as shown below
 ```
 > TASK [validate_ic4g_ocp_servers : debug] **********************************************************************************************************************************************************
 ok: [10.5X.9X.4X] => {
@@ -187,7 +187,7 @@ ok: [10.5X.9X.4X] => {
 
 ## Summary
 
-Hopefully, you found this tutorial helpful and educational by deploying OpenShift 4.X on the virtual classic infrastructure layer. Once the OCP 4.X solution is deployed, it inherits all of the advantages of the IBM Cloud advantages; for example, Elasticity of CPU and Memory and Disk. The Ansible Playbook supports N number of worker nodes as part of the Cluster from day one install and the deployment inherits all the security features provided by CoreOS.
+Hopefully, you found this tutorial helpful and educational by deploying OpenShift 4.X on the virtual classic infrastructure layer. Once the OCP 4.X solution is deployed, it inherits all of the advantages of the IBM Cloud advantages; for example, Elasticity of CPU and Memory and Disk. The Ansible playbook supports N number of worker nodes as part of the Cluster from day one install and the deployment inherits all the security features provided by CoreOS.
 
 
 ## Related links
