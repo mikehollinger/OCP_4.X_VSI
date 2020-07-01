@@ -1,0 +1,25 @@
+---
+# tasks file for pre_new_vsi_machine
+
+- name: Install needed packages
+  yum:
+    name:
+      - unzip
+      - git
+      - perl
+      - gcc
+      - binutils
+      - mtools
+      - syslinux
+      - mkisofs
+      - xz-devel 
+    state: present
+
+- name: Copy coreos hsk file
+  copy:
+    src: "{{ role_path }}/files/coreos.hsk"
+    dest: /tmp/coreos.hsk
+
+
+
+    

@@ -1,0 +1,9 @@
+
+- hosts: local_host
+  vars_prompt:
+  
+    - name: "Do you want to delete all the VMs in SL"
+      prompt: "Do you want to delete all the VMs in SL (yes/no)?"
+      private: yes
+  roles:
+    - cleanup_ic4g_ocp_servers

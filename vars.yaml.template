@@ -1,0 +1,104 @@
+
+### IBM CLOUD CLASSIC INFRASTRUCTURE OR IC4G INFORMATION
+# Hint: For IBM CLoud you can get this using: https://cloud.ibm.com/iam/users"
+# Hint: For IBM Cloud for Government you can get this using: https://control.usgov.softlayer.com/account/user/profile
+sl_username: "<infrastructure_username>"
+# Hint: For IBM CLoud you can get this using: https://cloud.ibm.com/iam/apikeys
+# Hint: For IBM Cloud for Government you can get this using: https://control.usgov.softlayer.com/account/user/profile
+sl_api_key: "<infrastructure_apikey>"
+# Hint: For IBM Cloud : https://api.service.softlayer.com/rest/v3.1
+# Hint: For IBM Cloud for Government: https://api.service.usgov.softlayer.com/rest/v3.1
+sl_endpoint_url: "<infrastructure_services_url>"  
+sl_timeout: 40
+
+
+### IBM CLOUD CLASSIC INFRASTRUCTURE RESOURCE OR IC4G INFORMATION
+# Hint: For IBM Cloud  you can get this using: https://cloud.ibm.com/docs/overview?topic=overview-locations&locale=en
+# Hint: For IBM Cloud for Government two options: wdc03 or dal08
+sl_datacenter: "<infrastructure_datacenter_code>"
+# Hint: For IBM CLoud you can get this using: https://cloud.ibm.com/classic/network/gatewayappliances
+# Hint: For IBM Cloud for Government you can get this using: https://control.usgov.softlayer.com/network/gatewayappliances
+sl_private_vlan: "<infrastructure_private_vlan_number>"
+
+# Hint: For IBM CLoud you can get this using: https://cloud.ibm.com/classic/network/subnets
+# Hint: For IBM Cloud for Government you can get this using: https://control.usgov.softlayer.com/network/subnets
+sl_vlan_info:
+  # Hint: "100.106.55.192"
+  vlan_first_ip: "<vlan_first_ip_address>"
+  # Hint: "100.106.55.254"
+  vlan_last_ip: "<vlan_last_ip_address>"
+  # Hint: "/26" make sure include forward slash
+  netmask_cidr: "/<vlan_netmask>"
+
+#Hint: you can change to monthly
+sl_vsi_billing: "hourly"
+
+
+# OPENSHIFT INFORMATION
+# Hint:  For RedHat you can get this using: https://cloud.redhat.com/openshift/install/metal/user-provisioned
+pullsecret: '<openshift_install_key>'
+# Hint OpenShift build number: 4.3 
+openshift_build: "4.3"
+# Hint OpenShift build version: 8 
+openshift_build_version: "8"
+
+
+# OPENSHIFT HOST INFO
+# Hint: ibm.com
+base_domain: "<your_base_domain>"
+# Hint: us 
+base_domain_prefix: "<your_base_domain_geolocation>"
+# Hint: dev
+sl_ocp_host_prefix: "<your_environment_name_identifer>"
+
+
+# OPENSHIFT HOSTNAME INFO
+sl_ocp_worker_node_name_prefix: "{{sl_ocp_host_prefix}}-worker-"
+sl_ocp_master_node_name_prefix: "{{sl_ocp_host_prefix}}-master-"
+
+# Hint: To add more master node just simple add   - "{{ sl_ocp_master_node_name_prefix}}3"
+sl_ocp_masters:
+  - "{{ sl_ocp_master_node_name_prefix}}0"
+  - "{{ sl_ocp_master_node_name_prefix}}1"
+  - "{{ sl_ocp_master_node_name_prefix}}2"
+
+# Hint: To add more worker node just simple add   - "{{sl_ocp_worker_node_name_prefix}}4"
+sl_ocp_workers:
+  - "{{sl_ocp_worker_node_name_prefix}}0"
+  - "{{sl_ocp_worker_node_name_prefix}}1"
+  - "{{sl_ocp_worker_node_name_prefix}}2"
+  - "{{sl_ocp_worker_node_name_prefix}}3"
+
+
+sl_ocp_helpernode:
+  - "{{sl_ocp_host_prefix}}-helpernode"
+
+sl_ocp_bootstrap:
+  - "{{sl_ocp_host_prefix}}-bootstrap"
+
+
+
+
+
+
+
+
+
+
+
+
+##################################################################
+# The following are variables that are parameterized for OCP v4.X
+##################################################################
+
+# RHCOS build and url
+v_rhcos_bios: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/{{openshift_build}}/{{openshift_build}}.{{openshift_build_version}}/rhcos-{{openshift_build}}.{{openshift_build_version}}-x86_64-metal.x86_64.raw.gz"
+v_rhcos_initramfs: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/{{openshift_build}}/{{openshift_build}}.{{openshift_build_version}}/rhcos-{{openshift_build}}.{{openshift_build_version}}-x86_64-installer-initramfs.x86_64.img"
+v_rhcos_install_kernel: "https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/{{openshift_build}}/{{openshift_build}}.{{openshift_build_version}}/rhcos-{{openshift_build}}.{{openshift_build_version}}-x86_64-installer-kernel-x86_64"
+
+
+# OCP Installer
+v_ocp_client: "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/{{openshift_build}}.{{openshift_build_version}}/openshift-client-linux-{{openshift_build}}.{{openshift_build_version}}.tar.gz"
+v_ocp_installer: "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/{{openshift_build}}.{{openshift_build_version}}/openshift-install-linux-{{openshift_build}}.{{openshift_build_version}}.tar.gz"
+
+vsi_provison_pause: 15

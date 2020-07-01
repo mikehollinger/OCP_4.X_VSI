@@ -1,0 +1,42 @@
+    
+
+    
+- hosts: vsi_sl_guest_bootstrap
+  vars:
+    ansible_python_interpreter: "/usr/bin/python"
+  roles:
+     - prep_new_ic4g_ocp_servers
+
+- hosts: vsi_sl_guest_masters
+  vars:
+    ansible_python_interpreter: "/usr/bin/python"
+  roles:
+     - prep_new_ic4g_ocp_servers
+
+
+- hosts: vsi_sl_guest_workers
+  vars:
+    ansible_python_interpreter: "/usr/bin/python"
+  roles:
+     - prep_new_ic4g_ocp_servers
+
+
+
+- hosts: vsi_sl_helper_guest
+  vars:
+    ansible_python_interpreter: "/usr/bin/python"
+  roles:
+     - build_ic4g_ocp_host_inventory
+     - update-helpernode
+
+
+###########
+#  Restart servers in sequence
+############
+- hosts: localhost
+  vars:
+    ansible_python_interpreter: "/usr/bin/python"
+  roles:
+     - restart_ic4g_ocp_servers
+
+ 

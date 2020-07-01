@@ -1,0 +1,9 @@
+# brew install pygobject3 gtk+3
+#export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:/usr/local/opt/libffi/lib/pkgconfig"
+#sudo dnf install gcc gobject-introspection-devel cairo-devel pkg-config python3-devel gtk3 
+
+- hosts: local_host
+  roles:
+    - create_ic4g_ocp_servers 
+
+

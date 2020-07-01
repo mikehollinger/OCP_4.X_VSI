@@ -1,0 +1,39 @@
+
+
+
+{% for host in groups['vsi_sl_guest_bootstrap'] %}
+portable:
+  subnet: "{{ hostvars[host]['ansible_facts']['default_ipv4']['netmask']}}{{ sl_vlan_info.netmask_cidr }}"
+dns:
+  domain: "{{ base_domain }}"
+  clusterid: "{{ base_domain_prefix }}"
+  forwarder1: "{{  hostvars[host]['ansible_facts']['dns']['nameservers'][0] }}"
+  forwarder2: "{{  hostvars[host]['ansible_facts']['dns']['nameservers'][1] }}"
+dhcp:
+  router: "{{ hostvars[host]['ansible_facts']['default_ipv4']['gateway'] }}"
+  bcast: "{{ hostvars[host]['ansible_facts']['default_ipv4']['broadcast'] }}"
+  netmask: "{{ hostvars[host]['ansible_facts']['default_ipv4']['netmask'] }}"
+  poolstart: "{{ sl_vlan_info.vlan_first_ip }}"
+  poolend: "{{ sl_vlan_info.vlan_last_ip }}"
+  ipid: "{{  hostvars[host]['ansible_facts']['default_ipv4']['network'] }}"
+  netmaskid: "{{ hostvars[host]['ansible_facts']['default_ipv4']['netmask'] }}"
+
+bootstrap:
+  name: "{{ hostvars[host]['ansible_facts']['hostname'] }}"
+  ipaddr: "{{ hostvars[host]['ansible_facts']['eth0']['ipv4']['address'] }}"
+  macaddr: "{{ hostvars[host]['ansible_facts']['default_ipv4']['macaddress'] }}"
+{% endfor %}
+
+masters:
+{% for host in groups['vsi_sl_guest_masters'] %}
+  - name: "{{ hostvars[host]['ansible_facts']['hostname'] }}"
+    ipaddr: "{{ hostvars[host]['ansible_facts']['eth0']['ipv4']['address'] }}"
+    macaddr: "{{ hostvars[host]['ansible_facts']['default_ipv4']['macaddress'] }}"
+{% endfor %}
+
+workers:
+{% for host in groups['vsi_sl_guest_workers'] %}
+  - name: "{{ hostvars[host]['ansible_facts']['hostname'] }}"
+    ipaddr: "{{ hostvars[host]['ansible_facts']['eth0']['ipv4']['address'] }}"
+    macaddr: "{{ hostvars[host]['ansible_facts']['default_ipv4']['macaddress'] }}"
+{% endfor %}

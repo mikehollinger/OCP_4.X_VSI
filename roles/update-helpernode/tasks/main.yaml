@@ -1,0 +1,6 @@
+
+
+- include: configure_helper.yaml
+- include: ignition_files.yaml
+- include: disable_password_login.yaml
+
