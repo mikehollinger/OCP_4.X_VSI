@@ -1,0 +1,35 @@
+      - name: "Searching for a String"
+        become: yes
+        become_user: root
+        register: contentofMACADDR
+        shell: "cat /etc/sysconfig/network-scripts/ifcfg-eth0 | grep HWADDR"
+#      - debug:
+#         msg: "{{ contentofMACADDR.stdout_lines | list }}"
+
+      - name: "sample task in case the String present in the file"
+        when: '"LogLevel debug" in contentofMACADDR.stdout'
+#        debug: msg="contentofMACADDR.stdout"
+
+#      - name: Unconditionally reboot the machine with all defaults
+#        reboot:    
+
+      - name: "hostname"
+        debug: msg="{{ hostvars[inventory_hostname].ansible_hostname }}"
+      - name: " mac address"
+        debug: msg="{{  hostvars[inventory_hostname].ansible_default_ipv4.macaddress }}"
+      - name: "ipaddress"
+        debug: msg="{{ hostvars[inventory_hostname].ansible_all_ipv4_addresses }}"
+     
+      - name: Add IP information to hosts variable
+        set_fact:
+          hostinfo_content: "{{ hostinfo_content|default({}) | combine( {hostvars[inventory_hostname].ansible_hostname: hostvars[inventory_hostname].ansible_default_ipv4.macaddress} ) }}"
+
+#      - debug: var=ansible_facts
+
+
+#      - debug: var={{ hostvars['100.104.32.226']['ansible_eth0']['ipv4']['address'] }}
+# ### write out the host file 
+#       - name: Write out host into to a file
+#         template:
+#            src: "{{ role_path }}/templates/allhostinfo.j2"
+#            dest: "{{ role_path }}/tmp/allhostinfo"

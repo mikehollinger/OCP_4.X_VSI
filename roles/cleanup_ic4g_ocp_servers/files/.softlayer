@@ -1,0 +1,5 @@
+[softlayer]
+username = harsingh
+api_key = c0fe75e7f4b6c0d0eee345d0308a1d827a45b2c1e6b3eca15ba64df02381ab8b
+endpoint_url = https://api.service.usgov.softlayer.com/rest/v3.1
+timeout = 40

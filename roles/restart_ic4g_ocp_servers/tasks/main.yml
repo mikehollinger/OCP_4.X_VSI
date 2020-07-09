@@ -1,0 +1,28 @@
+
+
+#################
+# IC4G Nodes
+##################
+- name: Restart all Openshift bootstrap node
+  shell: slcli  -y vs reboot --hard {{item}}
+  with_items: "{{ bootstraphostids }}"
+  loop_control:
+        pause: 60   
+
+
+
+- name: Restart all the Openshift master nodes
+  shell: slcli  -y vs reboot --hard {{item}}
+  with_items: "{{ masterhostids }}"
+  loop_control:
+        pause: 60   
+
+- name: Restart all the Openshift worker nodes
+  shell: slcli  -y vs reboot --hard {{item}}
+  with_items: "{{ workerhostids }}"
+  loop_control:
+        pause: 60   
+
+
+
+

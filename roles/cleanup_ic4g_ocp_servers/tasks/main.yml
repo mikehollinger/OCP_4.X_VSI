@@ -1,0 +1,65 @@
+---
+
+- name: Write out  Softlayer config file  
+  template:
+    src: "{{ role_path }}/templates/.softlayer.j2"
+    dest: "{{ role_path }}/files/.softlayer"
+
+  
+- name: Set Facts for Softlayer configuration path
+  set_fact: softlayer_conf="{{ role_path }}/files/.softlayer"
+
+- name: If follow=yes, create a link to softlayer config file
+  copy:
+    src: "{{ softlayer_conf }}"
+    remote_src: yes
+    dest: ~/  # link to /path/to/file
+    follow: yes
+
+- name: Delete Worker Nodes
+  command: "slcli -y vs cancel {{ item }}"
+  ignore_errors: True
+  with_items: "{{ sl_ocp_workers }}"
+  loop_control:
+        pause: 15 
+ 
+
+- name: Delete Master Nodes
+  command: "slcli -y vs cancel {{ item }}"
+  ignore_errors: True
+  with_items: "{{ sl_ocp_masters }}"
+  loop_control:
+        pause: 15 
+
+
+- name: Delete bootstrap Nodes
+  command: "slcli -y vs cancel {{ item }}"
+  ignore_errors: True
+  with_items: "{{ sl_ocp_bootstrap }}"
+  loop_control:
+        pause: 15 
+
+- name: Delete helper Nodes
+  command: "slcli -y vs cancel {{ item }}"
+  ignore_errors: True
+  with_items: "{{ sl_ocp_helpernode }}"
+  loop_control:
+        pause: 15 
+
+- pause:
+    minutes: 2
+
+- name: Get the ssh keyid by name ocp-key
+  register: contentof_all_sl_sshkeys
+  shell: "slcli  sshkey list | grep ocp-key"
+  ignore_errors: true
+  
+- debug: var=contentof_all_sl_sshkeys.stdout_lines
+ 
+- set_fact:
+    all_sl_ocp_key: "{{ contentof_all_sl_sshkeys.stdout_lines }}"
+  
+- name: Remove OCP-key 
+  shell: slcli  -y sshkey remove {{item.split(" ")[0]}}
+  ignore_errors: true
+  with_items: "{{ all_sl_ocp_key }}"
